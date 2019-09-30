@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as Joi from 'joi';
 import * as dotenv from 'dotenv';
+const databaseConf = require('./database');
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export interface EnvConfig {
   [key: string]: string;
@@ -12,9 +14,9 @@ export type LoggerLevel = 'debug' | 'info' | 'error' | 'warn';
 export class ConfigService {
   private readonly envConfig: { [key: string]: string };
 
-  constructor() {
+  constructor(filePath: string) {
     if (!this.isProduction) {
-      const result = dotenv.config({ path: '.env.dev' });
+      const result = dotenv.config({ path: filePath });
       if (result.error) {
         throw result.error;
       }
@@ -42,6 +44,12 @@ export class ConfigService {
     return this.envConfig.SECRET;
   }
 
+  get databaseConfiguration(): TypeOrmModuleOptions {
+    return {
+      ...databaseConf,
+    };
+  }
+
   get isProduction() {
     return process.env.NODE_ENV === 'production';
   }
@@ -62,6 +70,7 @@ export class ConfigService {
       DATABASE_NAME: Joi.string().required(),
       DATABASE_USER: Joi.string().required(),
       DATABASE_ACCESS_KEY: Joi.string().required(),
+      DATABASE_PORT: Joi.number(),
       UI_URL: Joi.string().required(),
       SECRET: Joi.string().required(),
     }).options({ stripUnknown: true });

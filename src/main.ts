@@ -1,6 +1,6 @@
 import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ConfigService } from './config/config.service';
+import { ConfigService } from './core/config/config.service';
 import * as helmet from 'helmet';
 import * as jwt from 'express-jwt';
 import {
