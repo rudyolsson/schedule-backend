@@ -47,4 +47,11 @@ async function bootstrap() {
 
   await app.listen(configService.expressPort);
 }
-bootstrap();
+(async () => {
+  try {
+    await bootstrap();
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
+})();

@@ -18,7 +18,7 @@ import { ConfigService } from './config/config.service';
     }),
   ],
   providers: [],
-  exports: [TypeOrmModule, ConfigService],
+  exports: [TypeOrmModule],
 })
 export class CoreModule {
 }

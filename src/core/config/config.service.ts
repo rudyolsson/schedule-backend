@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import * as Joi from 'joi';
 import * as dotenv from 'dotenv';
-const databaseConf = require('./database');
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+
+const databaseConf = require('./database');
 
 export interface EnvConfig {
   [key: string]: string;

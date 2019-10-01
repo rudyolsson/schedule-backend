@@ -33,7 +33,5 @@ function getDatabase(): TypeOrmModuleOptions {
     },
   };
 }
-
 const database = getDatabase();
-
 export = database;

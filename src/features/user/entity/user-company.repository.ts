@@ -10,7 +10,7 @@ export class UserCompanyRepository extends CommonRepository<UserCompany> {
   public async saveEntity(user: User, company: Company): Promise<UserCompany> {
     const userCompany: UserCompany = await new UserCompanyBuilder()
       .setUser(user)
-      .setBrand(company)
+      .setCompany(company)
       .build();
     return await this.save(userCompany);
   }

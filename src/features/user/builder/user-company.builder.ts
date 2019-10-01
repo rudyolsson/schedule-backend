@@ -17,7 +17,7 @@ export class UserCompanyBuilder {
     return this;
   }
 
-  setBrand(company: Company): UserCompanyBuilder {
+  setCompany(company: Company): UserCompanyBuilder {
     this._company = company;
     return this;
   }

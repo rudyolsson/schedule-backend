@@ -11,6 +11,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { CompanyModule } from '../company/company.module';
 import { User } from '../user/entity/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [
@@ -32,6 +33,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, UserService],
 })
 export class AuthModule {}
