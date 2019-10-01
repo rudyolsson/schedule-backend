@@ -1,5 +1,5 @@
 import { User } from '../entity/user.entity';
-import { CryptoUtils } from 'src/core/lib/utils/crypto.utils';
+import { CryptoUtils } from '../../../core/lib/utils/crypto.utils';
 
 export class UserBuilder {
   private _email: string;

@@ -3,6 +3,9 @@ import { User } from '../user/entity/user.entity';
 import { UserRepository } from '../user/entity/user.repository';
 import { Propagation, Transactional } from 'typeorm-transactional-cls-hooked';
 import { getCustomRepository } from 'typeorm';
+import { Company } from '../company/entity/company.entity';
+import { UserCompany } from './entity/user-company.entity';
+import { UserCompanyRepository } from './entity/user-company.repository';
 
 @Injectable()
 export class UserService {
@@ -31,6 +34,14 @@ export class UserService {
   @Transactional({ propagation: Propagation.MANDATORY })
   public async setActive(user: User): Promise<void> {
     await getCustomRepository(UserRepository).setActive(user);
+  }
+
+  @Transactional({ propagation: Propagation.MANDATORY })
+  public async createUserCompany(user: User, company: Company): Promise<UserCompany> {
+    return await getCustomRepository(UserCompanyRepository).saveEntity(
+      user,
+      company,
+    );
   }
 
   public isUserInvalid(user: User): boolean {

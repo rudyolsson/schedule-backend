@@ -14,14 +14,12 @@ import { Propagation, Transactional } from 'typeorm-transactional-cls-hooked';
 import { SignInDto } from './dto/signin.dto';
 import { SignUpDto } from './dto/signup.dto';
 import { User } from '../user/entity/user.entity';
-import { ProfileService } from '../profile/profile.service';
 
 @Controller('auth')
   export class AuthController {
     constructor(
       private readonly authService: AuthService,
       private readonly userService: UserService,
-      private readonly profileService: ProfileService,
     ) {}
 
     @Transactional({ propagation: Propagation.REQUIRES_NEW })
@@ -43,24 +41,8 @@ import { ProfileService } from '../profile/profile.service';
     @Transactional({ propagation: Propagation.REQUIRES_NEW })
     @Post('register')
     @Transactional({ propagation: Propagation.REQUIRES_NEW })
-    async register(@Body() signUp: SignUpDto): Promise<User> {
-      try {
-        const user: User = await this.userService.create(
-          signUp.email.toLowerCase(),
-          signUp.password,
-          true,
-        );
-        await this.profileService.create(
-          user,
-          signUp.firstName,
-          signUp.lastName,
-          signUp.phoneNumber,
-          signUp.country,
-        );
-        return user;
-      } catch (e) {
-        throw new Error(e);
-      }
+    async register(@Body() signUpDto: SignUpDto): Promise<User> {
+      return await this.authService.register(signUpDto);
     }
 
     @Delete('logout')

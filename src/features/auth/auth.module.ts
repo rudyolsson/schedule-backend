@@ -7,11 +7,18 @@ import { AuthController } from './auth.controller';
 import { ConfigModule } from '../../core/config/config.module';
 import { ConfigService } from '../../core/config/config.service';
 import { UserModule } from '../user/user.module';
+import { ProfileModule } from '../profile/profile.module';
+import { CompanyModule } from '../company/company.module';
+import { User } from '../user/entity/user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     UserModule,
+    ProfileModule,
     ConfigModule,
+    CompanyModule,
+    TypeOrmModule.forFeature([User]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],

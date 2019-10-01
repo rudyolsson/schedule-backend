@@ -15,4 +15,6 @@ export class SignUpDto {
   phoneNumber: string;
   @IsNotEmpty()
   country: string;
+  @IsNotEmpty()
+  company: string;
 }

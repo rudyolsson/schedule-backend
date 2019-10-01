@@ -10,6 +10,8 @@ import {
 import { UserBuilder } from '../builder/user.builder';
 import { TraceableEntity } from '../../../core/database/traceable.entity';
 import { Profile } from '../../profile/entity/profile.entity';
+import { Role } from '../../auth/types/auth.types';
+import { UserCompany } from './user-company.entity';
 
 @Entity({ name: 't_user' })
   @Unique(['email'])
@@ -37,4 +39,9 @@ import { Profile } from '../../profile/entity/profile.entity';
 
     @OneToOne(type => Profile, profile => profile.user)
     profile: Profile;
+
+    @OneToMany(type => UserCompany, company => company.user)
+    companies: UserCompany[];
+
+    roles: Role[];
   }
