@@ -3,7 +3,7 @@ import {
     UpdateResult,
     } from 'typeorm';
 import { CommonRepository } from '../../../core/database/common.repository';
-import { Company } from './company.entity';
+import { Company } from '../entity/company.entity';
 import { CompanyBuilder } from '../builder/company.builder';
 import { CompanyDto } from '../dto/company.dto';
 

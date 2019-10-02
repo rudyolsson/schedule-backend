@@ -1,9 +1,9 @@
 import { EntityRepository } from 'typeorm';
 import { CommonRepository } from '../../../core/database/common.repository';
 import { Company } from '../../company/entity/company.entity';
-import { User } from './user.entity';
+import { User } from '../entity/user.entity';
 import { UserCompanyBuilder } from '../builder/user-company.builder';
-import { UserCompany } from './user-company.entity';
+import { UserCompany } from '../entity/user-company.entity';
 
 @EntityRepository(UserCompany)
 export class UserCompanyRepository extends CommonRepository<UserCompany> {

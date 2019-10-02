@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Propagation, Transactional } from 'typeorm-transactional-cls-hooked';
 import { Company } from './entity/company.entity';
-import { CompanyRepository } from './entity/company.repository';
+import { CompanyRepository } from './repository/company.repository';
 import { getCustomRepository, UpdateResult } from 'typeorm';
 import { CompanyBuilder } from './builder/company.builder';
 import { CompanyDto } from './dto/company.dto';
+import { Department } from './entity/department.entity';
+import { DepartmentRepository } from './repository/department.repository';
+import { DepartmentBuilder } from './builder/department.builder';
 
 @Injectable()
 export class CompanyService {
@@ -45,6 +48,7 @@ export class CompanyService {
     const companyRepository: CompanyRepository = getCustomRepository(
       CompanyRepository,
     );
+
     const company: Company = await new CompanyBuilder()
       .setName(name)
       .build();
@@ -62,4 +66,29 @@ export class CompanyService {
     );
     return await companyRepository.updateEntity(companyId, companyDto);
   }
+
+  @Transactional({ propagation: Propagation.MANDATORY })
+  public async addDepartment(companyId: string, { departments }: { departments: Department[] }): Promise<Department[]> {
+    const departmentRepository: DepartmentRepository = getCustomRepository(
+      DepartmentRepository,
+    );
+    return await Promise.all(
+       departments.map(async dept => {
+        const asset: Department = await new DepartmentBuilder()
+        .setName(dept.name)
+        .setCompanyId(companyId)
+        .build();
+        return await departmentRepository.save(asset);
+      }));
+    }
+
+    @Transactional({ propagation: Propagation.MANDATORY })
+    public async updateDepartment(
+      department: Department,
+    ): Promise<UpdateResult> {
+      const departmentRepository: DepartmentRepository = getCustomRepository(
+        DepartmentRepository,
+      );
+      return await departmentRepository.updateEntity(department);
+    }
 }

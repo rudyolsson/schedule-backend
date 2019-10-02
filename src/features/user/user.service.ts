@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../user/entity/user.entity';
-import { UserRepository } from '../user/entity/user.repository';
+import { UserRepository } from './repository/user.repository';
 import { Propagation, Transactional } from 'typeorm-transactional-cls-hooked';
 import { getCustomRepository } from 'typeorm';
 import { Company } from '../company/entity/company.entity';
 import { UserCompany } from './entity/user-company.entity';
-import { UserCompanyRepository } from './entity/user-company.repository';
+import { UserCompanyRepository } from './repository/user-company.repository';
 
 @Injectable()
 export class UserService {

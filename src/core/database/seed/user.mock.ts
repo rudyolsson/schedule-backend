@@ -3,11 +3,12 @@ import { UserBuilder } from '../../../features/user/builder/user.builder';
 import { Company } from '../../../features/company/entity/company.entity';
 import { UserCompanyBuilder } from '../../../features/user/builder/user-company.builder';
 import { UserCompany } from '../../../features/user/entity/user-company.entity';
+import { CryptoUtils } from '../../lib/utils/crypto.utils';
 
 export async function createUserMock(email: string): Promise<User> {
   const user: User = await new UserBuilder()
     .setEmail(email)
-    .setPassword('123')
+    .setPassword(CryptoUtils.encrypt('123'))
     .build()
     .save();
 

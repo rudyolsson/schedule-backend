@@ -14,20 +14,6 @@ import { ProfileBuilder } from '../builder/profile.builder';
 @Entity({ name: 't_profile' })
 @Unique(['phone'])
 export class Profile extends TraceableEntity {
-  constructor(profileBuilder: ProfileBuilder) {
-    super();
-    if (profileBuilder) {
-      this.user = profileBuilder.user;
-      this.firstName = profileBuilder.firstName;
-      this.lastName = profileBuilder.lastName;
-      this.phone = profileBuilder.phone;
-      this.country = profileBuilder.country;
-      this.address = profileBuilder.address;
-      this.additionalAddress = profileBuilder.additionalAddress;
-      this.zip = profileBuilder.zip;
-      this.city = profileBuilder.city;
-    }
-  }
   @PrimaryColumn({ type: 'uuid' })
   userId: string;
 
@@ -61,4 +47,19 @@ export class Profile extends TraceableEntity {
   })
   @JoinColumn()
   user: User;
+
+  constructor(profileBuilder: ProfileBuilder) {
+    super();
+    if (profileBuilder) {
+      this.user = profileBuilder.user;
+      this.firstName = profileBuilder.firstName;
+      this.lastName = profileBuilder.lastName;
+      this.phone = profileBuilder.phone;
+      this.country = profileBuilder.country;
+      this.address = profileBuilder.address;
+      this.additionalAddress = profileBuilder.additionalAddress;
+      this.zip = profileBuilder.zip;
+      this.city = profileBuilder.city;
+    }
+  }
 }

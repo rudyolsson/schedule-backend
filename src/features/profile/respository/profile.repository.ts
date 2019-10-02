@@ -1,6 +1,6 @@
 import { EntityRepository } from 'typeorm';
 import { CommonRepository } from '../../../core/database/common.repository';
-import { Profile } from './profile.entity';
+import { Profile } from '../entity/profile.entity';
 
 @EntityRepository(Profile)
 export class ProfileRepository extends CommonRepository<Profile> {

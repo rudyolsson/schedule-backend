@@ -1,6 +1,6 @@
 import { EntityRepository } from 'typeorm';
 import { CommonRepository } from '../../../core/database/common.repository';
-import { User } from './user.entity';
+import { User } from '../entity/user.entity';
 import { UserBuilder } from '../builder/user.builder';
 
 @EntityRepository(User)

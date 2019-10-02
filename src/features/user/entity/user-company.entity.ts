@@ -6,14 +6,6 @@ import { UserCompanyBuilder } from '../builder/user-company.builder';
 
 @Entity({ name: 't_user_company' })
 export class UserCompany extends TraceableEntity {
-  constructor(userCompanyBuilder: UserCompanyBuilder) {
-    super();
-    if (userCompanyBuilder) {
-      this.user = userCompanyBuilder.user;
-      this.company = userCompanyBuilder.company;
-    }
-  }
-
   @ManyToOne(type => User, user => user.companies, {
     primary: true,
     onDelete: 'CASCADE',
@@ -27,4 +19,12 @@ export class UserCompany extends TraceableEntity {
   })
   @JoinColumn({ name: 'companyId' })
   company: Company;
+
+  constructor(userCompanyBuilder: UserCompanyBuilder) {
+    super();
+    if (userCompanyBuilder) {
+      this.user = userCompanyBuilder.user;
+      this.company = userCompanyBuilder.company;
+    }
+  }
 }

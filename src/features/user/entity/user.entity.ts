@@ -16,15 +16,6 @@ import { UserCompany } from './user-company.entity';
 @Entity({ name: 't_user' })
   @Unique(['email'])
   export class User extends TraceableEntity {
-    constructor(userBuilder: UserBuilder) {
-      super();
-      if (userBuilder) {
-        this.email = userBuilder.email;
-        this.isActive = userBuilder.isActive;
-        this.password = userBuilder.password;
-      }
-    }
-
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -44,4 +35,13 @@ import { UserCompany } from './user-company.entity';
     companies: UserCompany[];
 
     roles: Role[];
+    
+    constructor(userBuilder: UserBuilder) {
+      super();
+      if (userBuilder) {
+        this.email = userBuilder.email;
+        this.isActive = userBuilder.isActive;
+        this.password = userBuilder.password;
+      }
+    }
   }
