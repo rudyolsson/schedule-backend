@@ -4,10 +4,12 @@ import {
     JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
+    OneToMany,
 } from 'typeorm';
 import { TraceableEntity } from '../../../core/database/traceable.entity';
 import { Company } from './company.entity';
 import { DepartmentBuilder } from '../builder/department.builder';
+import { Shift } from 'src/features/shift/entity/shift.entity';
 
 @Entity({ name: 't_department' })
 export class Department extends TraceableEntity {
@@ -25,6 +27,9 @@ export class Department extends TraceableEntity {
           })
     @JoinColumn({ name: 'companyId' })
     company: Company;
+
+    @OneToMany(type => Shift, shift => shift.department)
+    shifts: Shift[];
 
     constructor(departmentBuilder: DepartmentBuilder) {
         super();

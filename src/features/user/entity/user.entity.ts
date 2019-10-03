@@ -12,6 +12,7 @@ import { TraceableEntity } from '../../../core/database/traceable.entity';
 import { Profile } from '../../profile/entity/profile.entity';
 import { Role } from '../../auth/types/auth.types';
 import { UserCompany } from './user-company.entity';
+import { Shift } from 'src/features/shift/entity/shift.entity';
 
 @Entity({ name: 't_user' })
   @Unique(['email'])
@@ -34,8 +35,11 @@ import { UserCompany } from './user-company.entity';
     @OneToMany(type => UserCompany, company => company.user)
     companies: UserCompany[];
 
+    @OneToMany(type => Shift, shift => shift.user)
+    shifts: Shift[];
+
     roles: Role[];
-    
+
     constructor(userBuilder: UserBuilder) {
       super();
       if (userBuilder) {

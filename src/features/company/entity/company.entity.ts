@@ -11,7 +11,6 @@ import { UserCompany } from '../../user/entity/user-company.entity';
 import { Department } from './department.entity';
 
 @Entity({ name: 't_company' })
-@Unique(['name'])
 export class Company extends TraceableEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

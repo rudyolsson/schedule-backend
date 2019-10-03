@@ -6,7 +6,7 @@ import { Company } from './entity/company.entity';
 import { CompanyDto } from './dto/company.dto';
 import { CompanyService } from './company.service';
 
-@Controller('/brand')
+@Controller('/company')
 export class CompanyController {
   constructor(private companyService: CompanyService) {}
 
