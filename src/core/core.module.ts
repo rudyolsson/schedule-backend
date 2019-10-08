@@ -2,6 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
+import { AppLogger } from './logger/logger.service';
 
 @Global()
 @Module({
@@ -17,8 +18,7 @@ import { ConfigService } from './config/config.service';
       },
     }),
   ],
-  providers: [],
-  exports: [TypeOrmModule],
+  providers: [AppLogger],
+  exports: [TypeOrmModule, AppLogger],
 })
-export class CoreModule {
-}
+export class CoreModule {}

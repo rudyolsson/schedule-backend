@@ -33,6 +33,10 @@ export class ConfigService {
     return this.envConfig.NODE_ENV;
   }
 
+  get logLevel(): LoggerLevel {
+    return 'debug';
+  }
+
   get uiURL(): string {
     return this.envConfig.UI_URL;
   }
@@ -66,8 +70,7 @@ export class ConfigService {
         .default('development'),
       PORT: Joi.number().default(3000),
       API_AUTH_ENABLED: Joi.boolean().required(),
-      DATABASE_HOST: Joi.string()
-        .required(),
+      DATABASE_HOST: Joi.string().required(),
       DATABASE_NAME: Joi.string().required(),
       DATABASE_USER: Joi.string().required(),
       DATABASE_ACCESS_KEY: Joi.string().required(),
