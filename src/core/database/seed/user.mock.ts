@@ -8,7 +8,7 @@ import { CryptoUtils } from '../../lib/utils/crypto.utils';
 export async function createUserMock(email: string): Promise<User> {
   const user: User = await new UserBuilder()
     .setEmail(email)
-    .setPassword(CryptoUtils.encrypt('123'))
+    .setPassword(await CryptoUtils.getHash('123'))
     .build()
     .save();
 
@@ -27,6 +27,8 @@ export async function createUserCompanyMock(
     .build()
     .save();
 
-  console.log(`  Hashed user ${user.id} and Company ${company.name} are linked`);
+  console.log(
+    `  Hashed user ${user.id} and Company ${company.name} are linked`,
+  );
   return userCompany;
 }

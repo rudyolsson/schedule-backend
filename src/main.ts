@@ -20,7 +20,7 @@ async function bootstrap() {
   const appOptions: NestApplicationOptions = {
     cors: {
       credentials: true,
-      origin: ['https://localhost:4200'],
+      origin: ['http://localhost:3000'],
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       allowedHeaders: 'Content-type,Accept,Authorization',
       preflightContinue: false,

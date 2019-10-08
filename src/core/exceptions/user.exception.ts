@@ -6,3 +6,11 @@ export class UserFoundException extends HttpException {
     super(message, HttpStatus.FORBIDDEN);
   }
 }
+
+export class UserUnauthorizedException extends HttpException {
+  constructor(
+    message: HttpExceptionMessage = { message: 'User Unauthorized' },
+  ) {
+    super(message, HttpStatus.FORBIDDEN);
+  }
+}

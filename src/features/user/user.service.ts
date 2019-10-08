@@ -6,6 +6,7 @@ import { getCustomRepository } from 'typeorm';
 import { Company } from '../company/entity/company.entity';
 import { UserCompany } from './entity/user-company.entity';
 import { UserCompanyRepository } from './repository/user-company.repository';
+import { CryptoUtils } from '../../core/lib/utils/crypto.utils';
 
 @Injectable()
 export class UserService {
@@ -23,7 +24,11 @@ export class UserService {
   }
 
   @Transactional({ propagation: Propagation.MANDATORY })
-  public async create(email: string, password: string, isActive: boolean): Promise<User> {
+  public async create(
+    email: string,
+    password: string,
+    isActive: boolean,
+  ): Promise<User> {
     return await getCustomRepository(UserRepository).saveEntity(
       email,
       password,
@@ -37,14 +42,21 @@ export class UserService {
   }
 
   @Transactional({ propagation: Propagation.MANDATORY })
-  public async createUserCompany(user: User, company: Company): Promise<UserCompany> {
+  public async createUserCompany(
+    user: User,
+    company: Company,
+  ): Promise<UserCompany> {
     return await getCustomRepository(UserCompanyRepository).saveEntity(
       user,
       company,
     );
   }
 
-  public isUserInvalid(user: User): boolean {
-    return !user || !user.isActive;
+  public async isUserInvalid(user: User, password: string): Promise<boolean> {
+    return (
+      !user ||
+      !user.isActive ||
+      !(await CryptoUtils.compareHash(password, user.password))
+    );
   }
 }
