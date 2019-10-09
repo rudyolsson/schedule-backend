@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   async createTokenForUser(payload: JwtPayload) {
-    return this.jwtService.sign(payload, { expiresIn: '1d'});
+    return this.jwtService.sign(payload, { expiresIn: '1d' });
   }
 
   async validateUser(payload: JwtPayload): Promise<User> {
@@ -45,34 +45,34 @@ export class AuthService {
   }
 
   @Transactional({ propagation: Propagation.MANDATORY })
-    public async register({
-      company: companyName,
-      email,
-      phoneNumber,
-      firstName,
-      lastName,
-      country,
-      password,
-    }: SignUpDto) {
-
-      const company = await this.companyService.findByName(companyName, ['*']);
-      if (!company) {
-        throw new CompanyNotFoundException();
-      }
-      let user;
-      try {
-        user = await this.userService.create(email.toLowerCase(), password, false);
-        await this.profileService.create(
-          user,
-          phoneNumber,
-          firstName,
-          lastName,
-          country,
-        );
-      } catch (e) {
-        throw new UserFoundException();
-      }
-      await this.userService.createUserCompany(user, company);
-      return user;
+  public async register({
+    companyName,
+    email,
+    phoneNumber,
+    firstName,
+    lastName,
+    country,
+    password,
+  }: SignUpDto) {
+    const company = await this.companyService.create(companyName);
+    let user;
+    try {
+      user = await this.userService.create(
+        email.toLowerCase(),
+        password,
+        false,
+      );
+      // await this.profileService.create(
+      //   user,
+      //   phoneNumber,
+      //   firstName,
+      //   lastName,
+      //   country,
+      // );
+    } catch (e) {
+      throw new UserFoundException();
     }
+    await this.userService.createUserCompany(user, company);
+    return user;
+  }
 }

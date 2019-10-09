@@ -16,5 +16,5 @@ export class SignUpDto {
   @IsNotEmpty()
   country: string;
   @IsNotEmpty()
-  company: string;
+  companyName: string;
 }
