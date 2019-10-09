@@ -4,6 +4,8 @@ import { Company } from '../../../features/company/entity/company.entity';
 import { UserCompanyBuilder } from '../../../features/user/builder/user-company.builder';
 import { UserCompany } from '../../../features/user/entity/user-company.entity';
 import { CryptoUtils } from '../../lib/utils/crypto.utils';
+import { ProfileBuilder } from 'src/features/profile/builder/profile.builder';
+import { Profile } from 'src/features/profile/entity/profile.entity';
 
 export async function createUserMock(email: string): Promise<User> {
   const user: User = await new UserBuilder()
@@ -31,4 +33,25 @@ export async function createUserCompanyMock(
     `  Hashed user ${user.id} and Company ${company.name} are linked`,
   );
   return userCompany;
+}
+
+export async function createUserProfileMock(
+  user: User,
+  firstName: string,
+  lastName: string,
+  country: string,
+  address: string,
+  phone: string,
+): Promise<Profile> {
+  const profile: Profile = await new ProfileBuilder()
+    .setUser(user)
+    .setFirstName(firstName)
+    .setLastName(lastName)
+    .setCountry(country)
+    .setAddress(address)
+    .setPhone(phone)
+    .build()
+    .save();
+  console.log(`  Profile for user ${user.id} created`);
+  return profile;
 }

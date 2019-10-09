@@ -15,6 +15,7 @@ import { SignInDto } from './dto/signin.dto';
 import { SignUpDto } from './dto/signup.dto';
 import { User } from '../user/entity/user.entity';
 import { UserUnauthorizedException } from 'src/core/exceptions/user.exception';
+import { first } from 'lodash';
 
 @Controller('auth')
 export class AuthController {
@@ -27,11 +28,17 @@ export class AuthController {
   @Post('token')
   async createToken(@Body() loginRequest: SignInDto): Promise<any> {
     try {
-      const user = await this.userService.findByEmail(loginRequest.email);
+      const user = await this.userService.findByEmail(loginRequest.email, [
+        'companies',
+        'companies.company',
+        'profile',
+      ]);
       if (await this.userService.isUserInvalid(user, loginRequest.password)) {
         throw new UserUnauthorizedException();
       }
+      const company = first(user.companies).company.id;
       const jwtPayload = {
+        company,
         email: user.email,
         roles: user.roles,
       };

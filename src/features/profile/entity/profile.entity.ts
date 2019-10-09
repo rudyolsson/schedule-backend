@@ -45,7 +45,7 @@ export class Profile extends TraceableEntity {
     primary: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   constructor(profileBuilder: ProfileBuilder) {

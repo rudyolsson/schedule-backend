@@ -9,6 +9,10 @@ export class UserController {
   @Transactional({ propagation: Propagation.REQUIRES_NEW })
   @Get()
   async hello() {
-    return await this.userService.findByEmail('rudyolsson@gmail.com');
+    return await this.userService.findById(
+      '38e03541-9d1b-454f-bf15-756146c93e9b',
+      ['id', 'email'],
+      ['companies', 'companies.company', 'profile'],
+    );
   }
 }

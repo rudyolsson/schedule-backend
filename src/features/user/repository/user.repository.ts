@@ -5,30 +5,31 @@ import { UserBuilder } from '../builder/user.builder';
 
 @EntityRepository(User)
 export class UserRepository extends CommonRepository<User> {
-    public async findByEmail(
-        email: string,
-        relations: string[] = [],
-    ): Promise<User> {
-        return this.findOne(
-        { email },
+  public async findByEmail(
+    email: string,
+    relations: string[] = [],
+  ): Promise<User> {
+    return this.findOne({
+      relations,
+      where: { email },
+    });
+  }
 
-        {
-            relations,
-        },
-        );
-    }
+  public async saveEntity(
+    email: string,
+    password: string,
+    isActive: boolean,
+  ): Promise<User> {
+    const user: User = await new UserBuilder()
+      .setEmail(email)
+      .setPassword(password)
+      .setIsActive(isActive)
+      .build();
+    return await this.save(user);
+  }
 
-    public async saveEntity(email: string, password: string, isActive: boolean): Promise<User> {
-        const user: User = await new UserBuilder()
-        .setEmail(email)
-        .setPassword(password)
-        .setIsActive(isActive)
-        .build();
-        return await this.save(user);
-    }
-
-    public async setActive(user: User): Promise<User> {
-        user.isActive = true;
-        return await this.save(user);
-    }
+  public async setActive(user: User): Promise<User> {
+    user.isActive = true;
+    return await this.save(user);
+  }
 }

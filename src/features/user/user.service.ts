@@ -13,6 +13,18 @@ export class UserService {
   constructor() {}
 
   @Transactional({ propagation: Propagation.MANDATORY })
+  public async findById(
+    id: string,
+    relations: string[] = [],
+    select: string[] = [],
+  ): Promise<User> {
+    return await getCustomRepository(UserRepository).findById(
+      id,
+      relations,
+      select,
+    );
+  }
+
   public async findByEmail(
     email: string,
     relations: string[] = [],
