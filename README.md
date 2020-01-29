@@ -2,7 +2,10 @@
 
 ## Description
 
-API for ScheduleMe, A progressive User friendly scheduling application 
+API for ScheduleMe, A progressive User friendly scheduling application
+
+### Dependant on PostgreSQL db running on port: 5433
+### https://github.com/rudyolsson/schedule-root - for the ROOT project/Docker
 
 ## Installation
 
