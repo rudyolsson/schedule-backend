@@ -30,7 +30,7 @@
     "@types/lodash": "^4.14.141",
     "@types/morgan": "^1.7.37",
     "aes-js": "^3.1.2",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.10.1",
