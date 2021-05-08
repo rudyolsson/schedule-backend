@@ -47,7 +47,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "typeorm": "^0.2.19",
+    "typeorm": "^0.2.25",
     "typeorm-transactional-cls-hooked": "^0.1.8",
     "uuid": "^3.3.3",
     "winston": "^3.2.1"
